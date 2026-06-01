@@ -32,6 +32,10 @@ func is_flag_set(database: UCFlagDatabase, group_name: StringName, flag_name: St
 	var bitset: UCBitset = _group_states[group_name]
 	return bitset.check_bit(flag_index)
 
+func is_flag_index_set(database: UCFlagDatabase, group_name: StringName, flag_index: int) -> bool:
+	var bitset: UCBitset = _group_states[group_name]
+	return bitset.check_bit(flag_index)
+
 func data_to_dictionary() -> Dictionary:
 	var result: Dictionary = {}
 	

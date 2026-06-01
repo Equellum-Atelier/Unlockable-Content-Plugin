@@ -93,6 +93,14 @@ func remove_flag(flag_name: StringName) -> bool:
 	
 	return true
 
+func get_flag_names() -> PackedStringArray:
+	var results: PackedStringArray = []
+	
+	for definition in _flag_definitions:
+		results.append(definition[&"name"])
+	
+	return results
+
 func rename_flag(old_flag_name: StringName, new_flag_name: StringName) -> RenameResult:
 	if new_flag_name.is_empty():
 		return RenameResult.EMPTY_NAME
