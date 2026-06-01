@@ -5,7 +5,9 @@ extends Node
 ## A signal that gets emited when a flag in a flag group's value gets changed.
 signal flag_changed(flag_group: StringName, flag: StringName, value: bool)
 
+## The source of group and flag definitions.
 var database: UCFlagDatabase
+## The state holder for the currently registered flag groups.
 var state: UCState
 
 func _init() -> void:

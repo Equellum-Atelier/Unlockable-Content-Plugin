@@ -12,6 +12,7 @@ func initialize(database: UCFlagDatabase) -> void:
 		
 		_group_states[group_info.group_name] = UCBitset.new(group_info.max_index + 1)
 
+## Sets the value of a flag in the given flag group to true or false.
 func set_flag(database: UCFlagDatabase, group_name: StringName, flag_name: StringName, value: bool) -> void:
 	var flag_index: int = database.get_flag_index(group_name, flag_name)
 	
@@ -22,6 +23,7 @@ func set_flag(database: UCFlagDatabase, group_name: StringName, flag_name: Strin
 	var bitset: UCBitset = _group_states[group_name]
 	bitset.set_bit(flag_index, value)
 
+## Determines if a flag from the given flag group has been set to true or false.
 func is_flag_set(database: UCFlagDatabase, group_name: StringName, flag_name: StringName) -> bool:
 	var flag_index: int = database.get_flag_index(group_name, flag_name)
 	
@@ -32,10 +34,13 @@ func is_flag_set(database: UCFlagDatabase, group_name: StringName, flag_name: St
 	var bitset: UCBitset = _group_states[group_name]
 	return bitset.check_bit(flag_index)
 
-func is_flag_index_set(database: UCFlagDatabase, group_name: StringName, flag_index: int) -> bool:
+## Determines if the flag at the given index isset in the given flag group.
+func is_flag_index_set(group_name: StringName, flag_index: int) -> bool:
 	var bitset: UCBitset = _group_states[group_name]
 	return bitset.check_bit(flag_index)
 
+## Creates a dictionary representation of the current state, resulting in a dictionary with the following shape:
+## { "group_name": "base64_encoded_state_data", ... }
 func data_to_dictionary() -> Dictionary:
 	var result: Dictionary = {}
 	
@@ -45,6 +50,7 @@ func data_to_dictionary() -> Dictionary:
 	
 	return result
 
+## Retrieves a UCState object from a dictionary. Expects { "group_name": "base64_encoded_state_data", ... }
 func data_from_dictionary(data: Dictionary) -> void:
 	for group_name in data:
 		if not _group_states.has(group_name):

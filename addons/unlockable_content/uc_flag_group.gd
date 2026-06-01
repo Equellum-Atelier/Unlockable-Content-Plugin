@@ -93,6 +93,7 @@ func remove_flag(flag_name: StringName) -> bool:
 	
 	return true
 
+## Returns a list of all flag names in this group.
 func get_flag_names() -> PackedStringArray:
 	var results: PackedStringArray = []
 	
@@ -101,6 +102,7 @@ func get_flag_names() -> PackedStringArray:
 	
 	return results
 
+## Attempts to rename a flag to a new name. Returns RenameResult.SUCCES if no issues were encountered.
 func rename_flag(old_flag_name: StringName, new_flag_name: StringName) -> RenameResult:
 	if new_flag_name.is_empty():
 		return RenameResult.EMPTY_NAME
