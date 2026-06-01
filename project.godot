@@ -1,0 +1,45 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Unlockable Content"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+UnlockableContent="*res://addons/unlockable_content/unlockable_content.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/unlockable_content/plugin.cfg")
+
+[unlockable_content]
+
+flag_groups/test={
+"flag_definitions": Array[Dictionary]([{
+&"name": &"foo",
+&"value": 4
+}, {
+&"name": &"bar",
+&"value": 5
+}, {
+&"name": &"amog",
+&"value": 5
+}]),
+"group_name": &"test",
+"max_index": 5
+}
+flag_groups/proef={
+"flag_definitions": Array[Dictionary]([]),
+"group_name": &"proef",
+"max_index": -1
+}

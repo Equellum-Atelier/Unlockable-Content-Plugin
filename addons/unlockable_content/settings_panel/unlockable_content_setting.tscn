@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://q7t164vie0ql"]
+
+[ext_resource type="Script" uid="uid://coe0cv78kdmio" path="res://addons/unlockable_content/settings_panel/flags.gd" id="2_daanq"]
+[ext_resource type="StyleBox" uid="uid://bd5p86pqvox30" path="res://addons/unlockable_content/settings_panel/setting_tab_panel.tres" id="2_fx1hh"]
+[ext_resource type="Script" uid="uid://cotq4j611yi67" path="res://addons/unlockable_content/settings_panel/uc_validated_line_edit.gd" id="3_daanq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8qbd"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.156863, 0.176471, 0.207843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_n8qbd"]
+vertical = true
+
+[node name="Flags" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.0
+theme_override_styles/panel = ExtResource("2_fx1hh")
+script = ExtResource("2_daanq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AddFlagsGroupButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+text = "Add Flag Group"
+
+[node name="FlagGroupName" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+placeholder_text = "Flag Group"
+context_menu_enabled = false
+emoji_menu_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("3_daanq")
+casing_strategy = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n8qbd")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_styles/split_bar_background = SubResource("StyleBoxLine_n8qbd")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/PanelContainer/HSplitContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FlagGroupSelectionArea" type="ItemList" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+item_count = 2
+item_0/text = "test"
+item_1/text = "proef"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/HSplitContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FlagInfoContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="RemoveFlagGroupButton" type="Button" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Remove Group"
+
+[node name="FlagInfo" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddFlagContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AddFlagButton" type="Button" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/AddFlagContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Add Flag"
+
+[node name="FlagNameEdit" type="LineEdit" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/AddFlagContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Flag Name"
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("3_daanq")
+casing_strategy = 1
+
+[node name="FlagValue" type="LineEdit" parent="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/AddFlagContainer"]
+layout_mode = 2
+placeholder_text = "auto"
+context_menu_enabled = false
+emoji_menu_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("3_daanq")
+valid_characters = "0123456789"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/AddFlagsGroupButton" to="." method="_on_add_flags_button_pressed"]
+[connection signal="validation_succesful" from="VBoxContainer/HBoxContainer/FlagGroupName" to="." method="_on_flag_group_name_validation_succesful"]
+[connection signal="item_selected" from="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer2/FlagGroupSelectionArea" to="." method="_on_flag_group_selection_area_item_selected"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/RemoveFlagGroupButton" to="." method="_on_remove_flag_group_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/AddFlagContainer/AddFlagButton" to="." method="_on_add_flag_button_pressed"]
+[connection signal="validation_succesful" from="VBoxContainer/PanelContainer/HSplitContainer/ScrollContainer/FlagInfoContainer/AddFlagContainer/FlagNameEdit" to="." method="_on_flag_name_edit_text_changed"]
